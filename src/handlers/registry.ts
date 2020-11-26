@@ -54,9 +54,10 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
   const responses = await Promise.allSettled(requests);
   const values = responses.filter(assertFulfilled).map((promise) => promise.value);
 
-  const data = Object.fromEntries(
-    values.map((value) => [value.name, { name: value.name, version: value['dist-tags'].latest }])
-  );
+  const data = values.map((value) => ({
+    name: value.name,
+    version: value['dist-tags'].latest,
+  }));
 
   return makeResponse(data);
 };
