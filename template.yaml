@@ -1,0 +1,31 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+  RegistryFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: build
+      Handler: registry.handler
+      Runtime: nodejs12.x
+      Events:
+        Registry:
+          Type: Api
+          Properties:
+            Path: /registry
+            Method: get
+
+Outputs:
+  RegistryApi:
+    Description: "API Gateway endpoint URL for Prod stage for Registry function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/registry/"
+  RegistryFunction:
+    Description: "Registry Lambda Function ARN"
+    Value: !GetAtt RegistryFunction.Arn
+  RegistryFunctionIamRole:
+    Description: "Implicit IAM Role created for Registry function"
+    Value: !GetAtt RegistryFunctionRole.Arn

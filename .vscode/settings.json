@@ -1,0 +1,9 @@
+{
+  "yaml.customTags": [
+    "!GetAtt",
+    "!Sub"
+  ],
+  "[typescript]": {
+    "editor.formatOnSave": true
+  }
+}

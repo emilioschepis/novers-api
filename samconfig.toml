@@ -1,0 +1,9 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "novers-api"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-160ad3rknznpw"
+s3_prefix = "novers-api"
+region = "eu-west-1"
+capabilities = "CAPABILITY_IAM"
