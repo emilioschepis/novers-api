@@ -3,6 +3,7 @@ import Axios, { AxiosResponse } from 'axios';
 
 type RegistryResponse = {
   name: string;
+  modified: string;
   'dist-tags': {
     latest: string;
   };
@@ -57,6 +58,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
   const data = values.map((value) => ({
     name: value.name,
     version: value['dist-tags'].latest,
+    modifiedAt: value.modified,
   }));
 
   return makeResponse(data);
