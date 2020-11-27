@@ -4,11 +4,6 @@ import Axios, { AxiosResponse } from 'axios';
 type RegistryResponse = {
   name: string;
   modified: string;
-  homepage?: string;
-  description?: string;
-  time: {
-    [K: string]: string;
-  };
   'dist-tags': {
     latest: string;
   };
@@ -46,6 +41,9 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 
   const client = Axios.create({
     baseURL: 'https://registry.npmjs.org',
+    headers: {
+      Accept: 'application/vnd.npm.install-v1+json',
+    },
   });
 
   const requests = packages
@@ -60,9 +58,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
   const data = values.map((value) => ({
     name: value.name,
     version: value['dist-tags'].latest,
-    modifiedAt: value.time[value['dist-tags'].latest],
-    description: value.description,
-    homepage: value.homepage,
+    modifiedAt: value.modified,
   }));
 
   return makeResponse(data);

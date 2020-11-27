@@ -4,7 +4,8 @@
   "private": "true",
   "scripts": {
     "build": "webpack",
-    "deploy": "npm run build && sam deploy"
+    "deploy": "npm run build && sam deploy",
+    "serve": "npm run build -- --watch & sam local start-api"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.64",
